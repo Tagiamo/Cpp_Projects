@@ -1,0 +1,46 @@
+After running the program on the mystery data I saw that mystery1 and
+mystery3 do have solutions, whereas mystery2.dat does not have one.
+
+mystery2.dat -> impossible to solve                ******************
+
+For the other two it was not immediately clear which is
+which. However, after looking at the boards I noticed that mystery1
+has 1 empty row in the middle and mystery3 has two empty rows - at
+both ends (both tables have the same number of empty spaces). This
+potentially meant that mystery3.dat is the extremely hard
+one. Starting from either end of the board the algorithm could easily
+guess and place numbers. Nevertheless, at some point it would reach a
+spot where no number could be placed and it would need to go back and
+change the previous numbers. The fact that the very first numbers were
+chosen without too much restriction means that the algorithm would
+perhaps need to go back to the very beginning of the table and change
+some numbers. This has the potential of being more time-consuming
+compared to the situation in mystery1.
+
+However, in mystery1.dat we have 23 given numbers and in mystery3.dat
+we have 24 given numbers. We find that the combinations of possible
+tables (taking as a restriction only the initial numbers in the table)
+are approximately 1.57x10^33 for mystery1 and 3.43x10^32 for mystery3
+So, this would now imply the contrary - that mystery3 table could be
+around 4.6 tmes easier to solve (at least when looking at the problem
+initially, in an extremely simplistic way).
+
+I then decided to time both solutions. For this I used the
+std::chrono library(1). I also realised that since my algorithm is
+following a well defined path, its runtime is dependent on
+the table position from where it starts. I ran 4 different cases (the
+algo goes row by row and starts from either 1.top left 2.top right
+3.bottom left 4.bottom right). In 3/4 cases mystery3 table appeared to
+be easier to solve.
+
+Top left: mystery3 is solved 27 times faster
+Top right: mystery3 is solved 4 times faster
+Bottom right: mystery3 is solved 3 times faster
+Bottom left: mystery3 is solved 8 times slower (but still 2 times
+             faster than mystery1 in the case 'top left')
+
+Based on this I would rather suppose that:
+mystery1.dat -> extremely hard difficulty          ******************
+mystery3.dat -> hard difficulty                    ******************
+
+(1) https://www.geeksforgeeks.org/measure-execution-time-function-cpp/
